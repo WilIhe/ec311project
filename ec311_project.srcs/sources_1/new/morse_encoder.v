@@ -22,8 +22,8 @@
 
 module morse_encoder(
     input [6:0] encode, // 7 bit input to represent upper case letters (uppercase is larger than lower in ascii)
-    input rst, clk, // clk will need to be slowed down
-    output morse_code
+    input rst, clk, upload, // clk will need to be slowed down; upload is used to confirm the ASCII input
+    output reg morse_code
     );
     // Need a way to stop the output from trying to start if the user is still changing the inputs
     
@@ -79,16 +79,12 @@ module morse_encoder(
     reg [1:0] state; // three states (off, short on (dit), long on (dah)) dah = 3*dit
     parameter S0=2'b00, S1=2'b01, S2=2'b10;
     
-    reg [3:0] glitch; // timer that waits for the user input to stay constant before starting morse code output
-    initial glitch = 0; // should wait 10 clk cycles before transmitting morse code
-    
     //reg continue;
     
     
     always @ (posedge clk) begin
         
-        if (glitch == 3'b1010) begin // 10 clk cycles have passed // begin is similar to {}
-            glitch = 0;
+        if (upload) begin // 10 clk cycles have passed // begin is similar to {}
             
               case (encode)
 //            A:
@@ -124,7 +120,7 @@ module morse_encoder(
         
         end else begin
         
-            glitch = glitch + 1'b0001; // wait another clk cycle
+           morse_code = 0;
        
         end 
     end

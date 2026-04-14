@@ -27,6 +27,8 @@ module morse_encoder(
     );
     // Need a way to stop the output from trying to start if the user is still changing the inputs
     
+    // Highest morse steam = 6, not including 0s
+    
     parameter
     // ASCII letters to binary
     // Add 20 in binary to get to lower case letters
@@ -57,11 +59,38 @@ module morse_encoder(
     W=7'b1010111, // 87
     X=7'b1011000, // 88
     Y=7'b1011001, // 89
-    Z=7'b1011010; // 90
+    Z=7'b1011010, // 90
+    
+    // Numbers
+    //(Number, binary)
+    
+    N0=7'b0000001, // 0
+    N1=7'b0000001, // 1
+    N2=7'b0000010, // 2
+    N3=7'b0000011, // 3
+    N4=7'b0000100, // 1
+    N5=7'b0000101, // 1
+    N6=7'b0000110, // 1
+    N7=7'b0000111, // 1
+    N8=7'b0001000, // 1
+    N9=7'b0001001; // 1
+    
+    
+    reg [1:0] state; // three states (off, short on (dit), long on (dah)) dah = 3*dit
+    parameter S0=2'b00, S1=2'b01, S2=2'b10;
+    
+    reg [3:0] glitch; // timer that waits for the user input to stay constant before starting morse code output
+    initial glitch = 0; // should wait 10 clk cycles before transmitting morse code
+    
+    //reg continue;
+    
     
     always @ (posedge clk) begin
         
-        case (encode)
+        if (glitch == 3'b1010) begin // 10 clk cycles have passed // begin is similar to {}
+            glitch = 0;
+            
+              case (encode)
 //            A:
 //            B:
 //            C:
@@ -91,8 +120,13 @@ module morse_encoder(
             
             //default:
         
-        endcase
-    
+            endcase
+        
+        end else begin
+        
+            glitch = glitch + 1'b0001; // wait another clk cycle
+       
+        end 
     end
     
     

@@ -23,4 +23,25 @@
 module morse_encoder_tb(
 
     );
+    
+    reg [6:0] encode;
+    reg rst, clk, enable;
+    wire morse_code;
+    
+    morse_encoder M1(encode, rst, clk, enable, morse_code);
+    
+    initial 
+    begin
+        encode = 7'b0000000; rst = 0; clk = 0; enable = 0;
+        
+        #2 enable = 1; 
+        #5 encode = 7'bb1000001;
+        
+        #100 $finish;
+    end
+    always 
+    begin
+        #2 clk = ~clk;
+    end
+    
 endmodule

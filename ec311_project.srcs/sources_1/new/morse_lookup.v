@@ -80,6 +80,7 @@ module morse_lookup(
             
         if (enable) begin // begin is similar to {}
              
+            // the morse sequence of each letter/number binary input
             case (encode)
                 A: morse_sequence = 20'b10111000000000000000; // o _ -      
                 B: morse_sequence = 20'b11101010100000000000;// - _ 0 _ 0 _ 0

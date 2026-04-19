@@ -25,7 +25,9 @@ module morse_lookup(
     input [6:0] encode,
     input enable, clk,
     output reg [19:0] morse_sequence
-    );
+    ); 
+    
+    initial morse_sequence = 0;
     
     parameter
     // ASCII letters to binary
@@ -62,7 +64,7 @@ module morse_lookup(
     // Numbers
     //(Number, binary) 
     
-    N0=7'b0000001, // 0
+    N0=7'b0000000, // 0
     N1=7'b0000001, // 1
     N2=7'b0000010, // 2
     N3=7'b0000011, // 3
@@ -79,32 +81,32 @@ module morse_lookup(
         if (enable) begin // begin is similar to {}
              
             case (encode)
-                A: morse_sequence = 20'b1011100000000000000; // o _ -      
-                B: morse_sequence = 20'b1110101010000000000;// - _ 0 _ 0 _ 0
-                C: morse_sequence = 20'b1110101110100000000;
-                D: morse_sequence = 20'b1110101000000000000;
-                E: morse_sequence = 20'b1000000000000000000;
-                F: morse_sequence = 20'b1010111010000000000;
-                G: morse_sequence = 20'b1110111010000000000;
-                H: morse_sequence = 20'b1010101000000000000;
-                I: morse_sequence = 20'b1010000000000000000;
-                J: morse_sequence = 20'b1011101110111000000;
-                K: morse_sequence = 20'b1110101110000000000;
-                L: morse_sequence = 20'b1011101010000000000;
-                M: morse_sequence = 20'b1110111000000000000;
-                N: morse_sequence = 20'b1110100000000000000;
-                O: morse_sequence = 20'b1110111011100000000;
-                P: morse_sequence = 20'b1011101110100000000;
-                Q: morse_sequence = 20'b1110111010111000000;
-                R: morse_sequence = 20'b1011101000000000000;
-                S: morse_sequence = 20'b1010100000000000000;
-                T: morse_sequence = 20'b1110000000000000000;
-                U: morse_sequence = 20'b1010111000000000000;
-                V: morse_sequence = 20'b0101010111000000000;
-                W: morse_sequence = 20'b1011101110000000000;
-                X: morse_sequence = 20'b1110101011100000000;
-                Y: morse_sequence = 20'b1110101110111000000;
-                Z: morse_sequence = 20'b1110111010100000000;
+                A: morse_sequence = 20'b10111000000000000000; // o _ -      
+                B: morse_sequence = 20'b11101010100000000000;// - _ 0 _ 0 _ 0
+                C: morse_sequence = 20'b11101011101000000000;
+                D: morse_sequence = 20'b11101010000000000000;
+                E: morse_sequence = 20'b10000000000000000000;
+                F: morse_sequence = 20'b10101110100000000000;
+                G: morse_sequence = 20'b11101110100000000000;
+                H: morse_sequence = 20'b10101010000000000000;
+                I: morse_sequence = 20'b10100000000000000000;
+                J: morse_sequence = 20'b10111011101110000000;
+                K: morse_sequence = 20'b11101011100000000000;
+                L: morse_sequence = 20'b10111010100000000000;
+                M: morse_sequence = 20'b11101110000000000000;
+                N: morse_sequence = 20'b11101000000000000000;
+                O: morse_sequence = 20'b11101110111000000000;
+                P: morse_sequence = 20'b10111011101000000000;
+                Q: morse_sequence = 20'b11101110101110000000;
+                R: morse_sequence = 20'b10111010000000000000;
+                S: morse_sequence = 20'b10101000000000000000;
+                T: morse_sequence = 20'b11100000000000000000;
+                U: morse_sequence = 20'b10101110000000000000;
+                V: morse_sequence = 20'b01010101110000000000;
+                W: morse_sequence = 20'b10111011100000000000;
+                X: morse_sequence = 20'b11101010111000000000;
+                Y: morse_sequence = 20'b11101011101110000000;
+                Z: morse_sequence = 20'b11101110101000000000;
      
                 N0: morse_sequence = 20'b11101110111011101110;
                 N1: morse_sequence = 20'b10111011101110111000;

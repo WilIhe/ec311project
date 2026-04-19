@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 04/11/2026 10:40:55 PM
+// Create Date: 04/18/2026 05:59:46 PM
 // Design Name: 
-// Module Name: morse_encoder_tb
+// Module Name: shift_input_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,28 +20,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module morse_encoder_tb(
+module shift_input_tb(
 
     );
     
     reg [6:0] encode;
-    reg rst, clk, enable;
-    wire morse_code;
+    reg clk, enable;
+    wire morse_shift;
     
-    morse_encoder M1(encode, rst, clk, enable, morse_code);
+    shift_input SI1 (encode, clk, enable, morse_shift);
     
     initial 
     begin
-        encode = 7'b0000000; rst = 0; clk = 0; enable = 0;
+        encode = 7'b0000000; clk = 0; enable = 0;
         
-        #2 enable = 1; 
-        #5 encode = 7'b1000001;
+        #2 enable = 1; encode = 7'b1000010; //B
         
         #100 $finish;
     end
     always 
     begin
-        #2 clk = ~clk;
+        #1 clk = ~clk;
     end
-    
 endmodule

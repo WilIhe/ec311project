@@ -22,11 +22,12 @@
 
 module morse_encoder(
     input [6:0] encode, // 7 bit input to represent upper case letters (uppercase is larger than lower in ascii)
-    input rst, clk, enable // clk will need to be slowed down; enable is used to confirm the ASCII input
+    input rst, clk, enable, // clk will need to be slowed down; enable is used to confirm the ASCII input
+    output reg morse_code
     );
-    
+     
     wire [19:0] morse_sequence;
-    
+    reg [4:0] index;
     
     reg state; // (short on (dit), long on (dah)) dah = 3*dit
     parameter
@@ -34,16 +35,29 @@ module morse_encoder(
     S0=1'b0, // saw '1'
     S1=1'b1; //  saw a '0'
     
-    initial state = 1'b0;
-    
+    initial state = S0;
+    initial morse_code = 0;
+    initial index = 5'b10011;
     
       
-    morse_lookup ML1 (.encode(encode), .enable(enable), .clk(clk), .morse_sequence(morse_sequence));
+    morse_lookup ML2 (.encode(encode), .enable(enable), .clk(clk), .morse_sequence(morse_sequence));
     
     
-    always @ (posedge clk) begin 
-    
-    
+    always @ (posedge morse_sequence[index]) begin 
+        if (rst) begin 
+            morse_code = 0;
+            state = S0;
+        end
+        else begin 
+            case (state)
+                S0: state = (morse_sequence[index] == 0) ? S0 : S1;  
+                S1: state = (morse_sequence[index] == 1) ? S1 : S0;  
+                default: state = S0;       
+            endcase
+        
+            morse_code = (state == S1) ? 1 : 0;
+        end
+        index = index - 5'b00001;
     end
     
 endmodule

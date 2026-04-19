@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 04/11/2026 10:40:55 PM
+// Create Date: 04/18/2026 06:32:27 PM
 // Design Name: 
-// Module Name: morse_encoder_tb
+// Module Name: morse_lookup_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,19 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module morse_encoder_tb(
+module morse_lookup_tb(
 
     );
     
     reg [6:0] encode;
-    reg rst, clk, enable;
-    wire morse_code;
+    reg enable, clk;
+    wire [19:0] morse_sequence;
     
-    morse_encoder M1(encode, rst, clk, enable, morse_code);
+    morse_lookup ML3(encode, enable, clk, morse_sequence);
     
     initial 
     begin
-        encode = 7'b0000000; rst = 0; clk = 0; enable = 0;
+        encode = 7'b0000000; clk = 0; enable = 0;
         
         #2 enable = 1; 
         #5 encode = 7'b1000001;

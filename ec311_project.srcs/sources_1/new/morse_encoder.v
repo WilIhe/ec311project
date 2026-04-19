@@ -26,8 +26,10 @@ module morse_encoder(
     output reg morse_code
     );
      
-    wire [19:0] morse_sequence;
+    wire morse_shift;
     reg [4:0] index;
+    
+    shift_input SI1 (.encode(encode), .clk(clk), .enable(enable), .morse_shift(morse_shift));
     
     reg state; // (short on (dit), long on (dah)) dah = 3*dit
     parameter
@@ -39,25 +41,23 @@ module morse_encoder(
     initial morse_code = 0;
     initial index = 5'b10011;
     
-      
-    morse_lookup ML2 (.encode(encode), .enable(enable), .clk(clk), .morse_sequence(morse_sequence));
     
     
-    always @ (posedge morse_sequence[index]) begin 
+    always @ (posedge clk) begin 
         if (rst) begin 
             morse_code = 0;
             state = S0;
         end
         else begin 
             case (state)
-                S0: state = (morse_sequence[index] == 0) ? S0 : S1;  
-                S1: state = (morse_sequence[index] == 1) ? S1 : S0;  
+                S0: state = (!morse_shift) ? S0 : S1; // does a zero appear on the bus?  
+                S1: state = (morse_shift) ? S1 : S0;  // does a one appear on the bus?
                 default: state = S0;       
             endcase
         
             morse_code = (state == S1) ? 1 : 0;
         end
-        index = index - 5'b00001;
+        //index = index - 5'b00001;
     end
     
 endmodule

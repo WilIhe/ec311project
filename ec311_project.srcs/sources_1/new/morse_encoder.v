@@ -29,7 +29,7 @@ module morse_encoder(
     wire morse_shift;
     reg [4:0] index;
     
-    shift_input SI1 (.encode(encode), .clk(clk), .enable(enable), .morse_shift(morse_shift));
+    shift_input SI1 (.encode(encode), .clk(clk), .enable(enable), .rst(rst), .morse_shift(morse_shift));
     
     reg state; // (short on (dit), long on (dah)) dah = 3*dit
     parameter
@@ -43,7 +43,7 @@ module morse_encoder(
     
     
     
-    always @ (posedge clk) begin 
+    always @ (posedge clk, posedge rst) begin 
         if (rst) begin 
             morse_code = 0;
             state = S0;
@@ -62,66 +62,3 @@ module morse_encoder(
     
 endmodule
 
-
-
-
-//    always @ (posedge clk) begin
-        
-//        if (enable) begin // 10 clk cycles have passed // begin is similar to {}
-//            if (glitch >= glitch_Max) begin // The clock has paused in between a dit/dah
-            
-//              case (encode)
-//                A: // o _ -
-//                    if (index > 6'b00001) begin // output nothing; morse sequence is over
-//                        state = S0;
-//                    end
-//                    else if (index > 6'b00000) begin
-//                        state = S2;
-//                    end
-//                    else begin 
-//                        state = S1;
-//                    end 
-//                B: // - _ 0 _ 0 _ 0
-//                    if (index > 6'b00011) begin
-//                        state = S0;
-//                    end
-//                    else if (index > 6'b00000) begin
-//                        state = S1;
-//                    end
-//                    else begin
-//                        state = S2;
-//                   end
-                    
-//                default: state = S0;
-        
-//            endcase
-        
-//            glitch = 0;
-//            index = index + 6'b000001;
-//            end
-//            else begin
-//                glitch = glitch + 2'b01; // increment glitch
-                
-//            end 
-            
-//        end else begin // enable is not on
-        
-//             state = S0;
-////           morse_code = 0;  
-//        end 
-
-//        if (state == S0) begin
-//            morse_code = 0;
-//            glitch_Max = 2'b01;
-//        end
-//        else if (state == S1) begin
-//            morse_code = 1;
-//            glitch_Max = 2'b01; // wait 1 clk cycle
-//        end
-//        else begin
-//            morse_code = 1;
-//            glitch_Max = 2'b11; // wait 3 clk cycles
-//        end
-        
-//    end
-    

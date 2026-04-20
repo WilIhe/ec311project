@@ -22,7 +22,7 @@
 
 module shift_input(
     input [6:0] encode,
-    input clk, enable,
+    input clk, enable, rst,
     output reg morse_shift
     );
     
@@ -39,17 +39,24 @@ module shift_input(
     initial morse_shift = 0;
     
     always @ (posedge clk) begin 
-        if (enable) begin
-            morse_shift = morse_sequence[index];
-            if (index == 5'b00000) begin 
-                index = 5'b00000; 
-            end
-            else begin 
-                index = index - 5'b00001;
-            end
-        end
-        else begin
+        if (rst) begin // re-outputs the morse code sequence
+            index = 5'b10011;
             morse_shift = 0;
         end
+        else begin
+        
+            if (enable) begin
+                morse_shift = morse_sequence[index];
+                if (index == 5'b00000) begin 
+                    index = 5'b00000; 
+                end
+                else begin 
+                    index = index - 5'b00001;
+                end
+            end
+            else begin
+                morse_shift = 0;
+            end
+        end   
     end
 endmodule

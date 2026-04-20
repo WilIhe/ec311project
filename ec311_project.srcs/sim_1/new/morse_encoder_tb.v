@@ -39,6 +39,11 @@ module morse_encoder_tb(
 //        #5 rst = 0;
           #25 rst = 1;
           #5 rst = 0;
+          #12 enable = 0;
+          #20 enable = 1;
+          #25 rst = 1;
+          #5 rst = 0;
+          
         
         #100 $finish;
     end

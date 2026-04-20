@@ -26,9 +26,10 @@ module morse_encoder(
     output reg morse_code
     );
      
-    wire morse_shift;
+    wire morse_shift; //clean_rst;
     reg [4:0] index;
     
+//    button_debounce D1(.clk(clk), .button(rst), .clean(clean_rst));
     shift_input SI1 (.encode(encode), .clk(clk), .enable(enable), .rst(rst), .morse_shift(morse_shift));
     
     reg state; // (short on (dit), long on (dah)) dah = 3*dit
@@ -61,4 +62,3 @@ module morse_encoder(
     end
     
 endmodule
-

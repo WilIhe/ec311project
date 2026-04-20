@@ -28,7 +28,7 @@ module clk_div_tb(
     wire divided_clk;
     
     
-    clk_divider DUT(clk_in, rst, divided_clk);
+    clk_div DUT(clk_in, rst, divided_clk);
     
     initial begin
         clk_in = 0;

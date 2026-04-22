@@ -27,7 +27,7 @@ module morse_lookup(
     output reg [19:0] morse_sequence
     ); 
     
-    initial morse_sequence = 0;
+    initial morse_sequence = 20'b00000000000000000000;
     
     parameter
     // ASCII letters to binary

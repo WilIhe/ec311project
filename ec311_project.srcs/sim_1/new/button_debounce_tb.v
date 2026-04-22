@@ -27,7 +27,7 @@ module button_debounce_tb(
     reg clk, button;
     wire clean;
     
-    button_debounce D1(clk, button, clean);
+    button_debounce D0(clk, button, clean);
     initial
     begin
         
@@ -43,7 +43,7 @@ module button_debounce_tb(
         
         #10 button = 1;
         #4 button = 0;
-        #1 button = 1;
+        #10 button = 1;
         #6 button = 0;
         #45 button = 1;
         #45 button = 0;

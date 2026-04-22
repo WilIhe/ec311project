@@ -33,8 +33,11 @@ module clk_div_tb(
     initial begin
         clk_in = 0;
         rst = 0;
-        #20 rst = 1;
+        #30 rst = 1;
         #12 rst = 0;
+        
+        #100 $finish;
+        
     end
     
 //    reg D, clk, rst;
@@ -53,6 +56,9 @@ module clk_div_tb(
 //        #200 $finish;
 //    end
     
-    always #2 clk_in = ~clk_in;
+    always
+    begin
+        #2 clk_in = ~clk_in;
+    end
     
 endmodule

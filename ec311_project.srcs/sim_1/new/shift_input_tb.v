@@ -28,15 +28,17 @@ module shift_input_tb(
     reg clk, enable, rst;
     wire morse_shift;
     
-    shift_input SI1 (encode, clk, enable, rst, morse_shift);
+    shift_input DUT (encode, clk, enable, rst, morse_shift);
     
     initial 
     begin
         encode = 7'b0000000; clk = 0; enable = 0; rst = 0;
         
         #2 enable = 1; encode = 7'b1000010; //B
-        #23 rst = 1;
-        #5 rst = 0;
+        #5 rst = 1;
+        #7 rst = 0;
+        #30 rst = 1;
+        #8 rst = 0;
         
         #100 $finish;
     end

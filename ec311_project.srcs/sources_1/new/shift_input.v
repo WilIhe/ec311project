@@ -30,15 +30,18 @@ module shift_input(
     // and outputs it one at a time
      
     wire [19:0] morse_sequence;
+    wire slowed_clk;
      
+    clk_div C2 (.clk_in(clk), .rst(rst), .divided_clk(slowed_clk));
     morse_lookup ML1 (.encode(encode), .enable(enable), .clk(clk), .morse_sequence(morse_sequence));
+ 
     
     reg [4:0] index;
     
     initial index = 5'b10011; //  starts at the MSB : 19
     initial morse_shift = 0;
     
-    always @ (posedge clk) begin 
+    always @ (posedge slowed_clk, posedge rst) begin 
         if (rst) begin // re-outputs the morse code sequence
             index = 5'b10011;
             morse_shift = 0;

@@ -28,24 +28,24 @@ module button_debounce(
     
     reg [19:0] MAX; // Max count number
     reg [19:0] counter; // 5 bit counter
-    initial counter = 20'b00000000000000000000;
-    initial MAX = 20'b11111111111111111111;
+    initial counter = 20'b00000000000000000000; //20'b00000000000000000000
+    initial MAX = 20'b11111111111111111111; // 20'b11111111111111111111;
     initial clean = 0;
     
     always @ (posedge clk) begin
     
         if (button == clean) begin
         
-            counter = 0;    
+            counter = 0;     
         
         end
         else begin
-         if (counter >= 5'b11111111111111111111) begin // 16 clock posedge clks have occured b10000
+         if (counter >= MAX) begin // 16 clock posedge clks have occured b10000
               clean = button;
 //            counter = 5'b00000;   
          end
          else begin 
-            counter = counter + 1;
+            counter = counter + 20'b00000000000000000001;
          end
         end 
     

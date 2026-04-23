@@ -5,7 +5,7 @@ module message_processor(
   input rst,
   input pulse_stored,
   input [6:0] char_in,
-  input [2:0] p_index,
+  input [2:0] index_br,
   output reg [6:0] char_out, 
   output reg [2:0] count, 
   output full_message
@@ -47,7 +47,7 @@ module message_processor(
   end
 
   always @(*) begin
-    case (p_index)
+    case (index_br)
       3'd0 : char_out = mc0;
       3'd1 : char_out = mc1;
       3'd2 : char_out = mc2;

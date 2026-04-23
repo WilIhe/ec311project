@@ -58,8 +58,8 @@ module shift_input_2(
         else begin
           done_char <= 0;
           if (start && !busy) begin
-            index <= 5'd19;
             morse_shift <= morse_sequence[5'd19];
+            index <= 5'd18;
             busy <= 1;
           end
           else if (busy) begin

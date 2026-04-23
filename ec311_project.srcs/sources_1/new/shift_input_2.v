@@ -36,7 +36,7 @@ module shift_input_2(
     wire slowed_clk;
      
     clk_div C2 (.clk_in(clk), .rst(rst), .divided_clk(slowed_clk));
-    morse_lookup ML1 (.encode(encode), .enable(enable), .clk(clk), .morse_sequence(morse_sequence));
+    morse_lookup ML1 (.encode(encode), .enable(1'b1), .clk(clk), .morse_sequence(morse_sequence));
  
     
     reg [4:0] index;
@@ -48,7 +48,7 @@ module shift_input_2(
       done_char = 0;
     end
 
-    always @ (posedge slowed_clk, posedge rst) begin 
+    always @ (posedge slowed_clk or posedge rst) begin 
         if (rst) begin // re-outputs the morse code sequence
             index <= 5'd19;
             morse_shift <= 0;

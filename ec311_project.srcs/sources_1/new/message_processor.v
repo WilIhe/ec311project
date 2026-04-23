@@ -24,7 +24,7 @@ module message_processor(
     char_out = 7'd0;
   end
 
-  always @(posedge clk or posedge rst)
+  always @(posedge clk or posedge rst) begin
     if (rst) begin
       mc0 <= 7'd0;
       mc1 <= 7'd0;

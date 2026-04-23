@@ -31,18 +31,18 @@ module message_processor(
       mc2 <= 7'd0;
       mc3 <= 7'd0;
       mc4 <= 7'd0;
-      count <= 7'd0;
+      count <= 3'd0;
     end
     else if (pulse_stored && count < 3'd5) begin
       case (count)
         3'd0: mc0 <= char_in;
-        3'd1: mc0 <= char_in;
-        3'd2: mc0 <= char_in;
-        3'd3: mc0 <= char_in;
-        3'd4: mc0 <= char_in;
-        default;
+        3'd1: mc1 <= char_in;
+        3'd2: mc2 <= char_in;
+        3'd3: mc3 <= char_in;
+        3'd4: mc4 <= char_in;
+        default: ;
       endcase
-      count <= count + 3'd1
+      count <= count + 3'd1;
     end
   end
 

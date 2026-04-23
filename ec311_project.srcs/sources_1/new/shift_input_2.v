@@ -20,9 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module shift_input(
+module shift_input_2(
     input [6:0] encode,
-    input clk, enable, rst,
+    input clk, rst,
     input start,
     output reg done_char,
     output reg busy,
@@ -69,10 +69,9 @@ module shift_input(
               index <= 5'd19;
               busy <= 0;
               done_char <= 1;
-              index <= 5'd19;
             end
             else begin 
-              index = index - 5'd1;
+              index <= index - 5'd1;
             end
           end
           else begin

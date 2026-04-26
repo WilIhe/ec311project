@@ -36,7 +36,7 @@ module button_debounce(
     
         if (button == clean) begin
         
-            counter = 0;     
+            counter <= 0;     
         
         end
         else begin
@@ -45,7 +45,7 @@ module button_debounce(
 //            counter = 5'b00000;   
          end
          else begin 
-            counter = counter + 20'b00000000000000000001;
+            counter <= counter + 20'b00000000000000000001;
          end
         end 
     

@@ -1,1 +1,1 @@
-This respository is for the EC 311 final project. The respository may be split up into branches that represent various aspects of the project. The main files that will be included here will most likley be Vivado .v files.
+This repository is for the Morse Code Encoder project. The repository may be split up into branches that represent various aspects of the project. The main files that will be included here will most likely be Vivado .v files. 
